@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+
+# Jupyter Notebook
+#.ipynb_checkpoints
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# MLflow specific
+mlruns/
+
+# Logs
+logs/
+*.log
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Data files - uncomment if you don't want to track data files
+# data/raw/*.parquet
+# data/raw/*.csv
+# data/processed/*.csv
+# data/processed/*.parquet
+
+# Model files - uncomment if you don't want to track model files
+# models/*.pkl
+# models/*.h5
+# models/*.joblib
+
+# Figures and visualizations - uncomment if you don't want to track figures
+# reports/figures/*.png
+# reports/figures/*.jpg
+# reports/figures/*.svg
+
+# Results and reports - uncomment if you don't want to track reports
+# reports/*.pdf
+# reports/*.html
