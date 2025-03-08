@@ -9,6 +9,10 @@ El proyecto utiliza el dataset "daily-oil-prices" para predecir el precio del pe
 Se implementan y comparan dos modelos:
 1. Regresión Lineal (como baseline)
 2. Random Forest Regressor
+3. Gradient Boosting Regressor
+4. Support Vector Regression (SVR)
+
+
 
 ## Dataset
 
@@ -88,6 +92,15 @@ El proyecto incluye varias etapas de preprocesamiento:
    - Parámetros configurables: número de estimadores, profundidad máxima, etc.
    - Capaz de modelar relaciones no lineales en los datos
 
+3. **Gradient Boosting Regressor**:
+   - Algoritmo que construye árboles secuencialmente, donde cada nuevo árbol corrige los errores del conjunto
+   - Proporciona alto rendimiento con el ajuste adecuado de hiperparámetros
+
+4. **Support Vector Regression (SVR)**:
+   - Adaptación de SVM para problemas de regresión
+   - Busca un hiperplano óptimo dentro de un margen de tolerancia
+   - Útil en espacios de alta dimensionalida
+
 ## Métricas Evaluadas
 
 - **Función de costo**: Mean Squared Error (MSE)
@@ -139,15 +152,19 @@ Las características más correlacionadas con el precio del petróleo son:
 - Precio con rezago de 2 días: correlación de 0.99
 - Año: correlación de 0.73
 
-### Resultados de Regresión Lineal
-- **MSE (Error Cuadrático Medio)**: 3.61 en test
-- **MAE (Error Absoluto Medio)**: 1.49 en test
-- **R²**: 0.88 en test
+### Comparación de Rendimiento de Modelos
 
-### Resultados de Random Forest
-- **MSE (Error Cuadrático Medio)**: 3.72 en test
-- **MAE (Error Absoluto Medio)**: 1.52 en test
-- **R²**: 0.87 en test
+| Modelo              | MSE (Test) | MAE (Test) | R² (Test) |
+|---------------------|------------|------------|-----------|
+| Regresión Lineal    | 3.61       | 1.49       | 0.877     |
+| Random Forest       | 3.72       | 1.52       | 0.874     |
+| Gradient Boosting   | 4.23       | 1.60       | 0.856     |
+| SVR                 | 7.50       | 2.23       | 0.745     |
+
+**Observaciones clave**:
+- La Regresión Lineal obtiene el mejor rendimiento general, a pesar de ser el modelo más simple
+- Los modelos más complejos muestran signos de sobreajuste, con gran diferencia entre métricas de entrenamiento y validación
+- El modelo SVR tiene el peor rendimiento en todos los indicadores
 
 ### Visualizaciones de MLflow
 
@@ -165,22 +182,39 @@ Para ver las visualizaciones completas y comparar modelos:
 
 Todas las gráficas se encuentran en `reports/figures/`
 
+![Comparación de Modelos](reports/figures/model_comparison.png)
+*Comparación de R² y MSE entre los cuatro modelos evaluados*
+
+![Predicciones vs Valores Reales](reports/figures/metrics_comparison.png)
+*Comparacino de metricas de cada modelo*
 
 ![Ejemplo de visualización de MSE en MLflow](reports/figures/lr_mse.png)
+*MSE para modelo de Regresión Lineal*
+
 ![Predicciones vs Valores Reales](reports/figures/lr_predictions.png)
+*Predicciones modelo de Regresión Lineal*
+
 ![Predicciones vs Valores Reales](reports/figures/rf_predictions.png)
+*Predicciones modelo de Random Forest*
+
+![Predicciones vs Valores Reales](reports/figures/gb_predictions.png)
+*Predicciones modelo de Gradient Boosting*
+
+![Predicciones vs Valores Reales](reports/figures/svr_predictions.png)
+*Predicciones modelo de Support Vector Regression*
 
 #### Gráficas de experimiento en MLFlow:
 ![Comparacion de modelos](reports/figures/MLFlow_Experiments01.png)
 ![Comparacion de modelos](reports/figures/MLFlow_Experiments02.png)
 ![Comparacion de modelos](reports/figures/MLFlow_Experiments03.png)
 
-### Conclusiones
 
-- La **Regresión Lineal** muestra un rendimiento ligeramente superior y más estable en este problema de predicción de precios del petróleo.
-- Ambos modelos logran buenos resultados con R² cercano a 0.88 en el conjunto de prueba.
-- El tiempo es la variable más predictiva, especialmente los precios históricos recientes.
+## Conclusiones
 
+1. El precio del petróleo muestra una fuerte dependencia de sus valores recientes, con el precio de hace 2 días siendo el predictor más fuerte.
+2. El modelo más simple (Regresión Lineal) obtiene los mejores resultados en este problema, superando a modelos más complejos.
+3. Los modelos más sofisticados muestran tendencia al sobreajuste, lo que reduce su efectividad en datos nuevos.
+4. Con el modelo seleccionado (Regresión Lineal), se logra un R² de 0.877 en el conjunto de prueba, lo que representa una buena capacidad predictiva para un problema financiero.
 
 ## Predicciones del Modelo
 
